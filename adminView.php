@@ -9,48 +9,6 @@ if (!isset($_SESSION['email'])) {
     exit();
 }
 
-// ✅ Handle Approve/Reject actions for requests
-if (
-    $_SERVER['REQUEST_METHOD'] === 'POST' &&
-    isset($_POST['action'], $_POST['request_id'], $_POST['request_type'])
-) {
-    $action = $_POST['action'];
-    $requestId = intval($_POST['request_id']);
-    $requestType = $_POST['request_type'];
-
-    switch ($requestType) {
-        case 'Barangay Clearance':
-            $table = 'brgyclearance';
-            break;
-        case 'Barangay ID':
-            $table = 'brgyid';
-            break;
-        case 'Barangay Indigency':
-            $table = 'brgyindigency';
-            break;
-        case 'Business Clearance':
-            $table = 'busclearance';
-            break;
-        default:
-            $table = '';
-            break;
-    }
-
-    if ($table) {
-        $status = ($action === 'approve') ? 'Approved' : 'Rejected';
-        $stmt = $conn->prepare("UPDATE $table SET status=? WHERE id=?");
-        $stmt->bind_param("si", $status, $requestId);
-        $stmt->execute();
-        $stmt->close();
-        if ($action === 'approve') {
-            $_SESSION['success'] = "Request Approved successfully!";
-        } else {
-            $_SESSION['error'] = "Request Rejected successfully!";
-        }
-        header("Location: " . $_SERVER['PHP_SELF']);
-        exit();
-    }
-}
 
 // Handle Delete User
 if (isset($_POST['delete_user'])) {
