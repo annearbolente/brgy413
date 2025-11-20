@@ -95,11 +95,13 @@ if (isset($_POST['signIn'])) {
             $roleToCheck = isset($_SESSION['role']) ? $_SESSION['role'] : (isset($user['role']) ? strtolower(trim($user['role'])) : 'user');
 
             // Treat captain and secretary as admin-level users for redirect purposes
-            if ($roleToCheck === 'admin' || $roleToCheck === 'secretary' || $roleToCheck === 'captain') {
+            if ($roleToCheck === 'secretary' || $roleToCheck === 'captain') {
                 $_SESSION['redirect_url'] = 'adminHomepage.php';
             } elseif ($roleToCheck === 'kagawad') {
                 $_SESSION['redirect_url'] = 'adminComplaints.php';
-            } else {
+            } elseif ($roleToCheck === 'admin') {
+                $_SESSION['redirect_url'] = 'adminView.php';
+            }else {
                 $_SESSION['redirect_url'] = 'userHomepage.php';
             }
             
