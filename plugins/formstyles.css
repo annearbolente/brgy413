@@ -1,0 +1,1007 @@
+
+
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
+}
+
+body {
+  min-height: 100vh;
+  background: linear-gradient(90deg, #e2e2e2, #c9d6ff);
+  position: relative;
+}
+
+/* === Sidebar-aware homepage layout === */
+.home {
+  position: absolute;
+  top: 0;
+  left: 280px;
+  width: calc(100% - 250px);
+  height: 100vh;
+  transition: all 0.3s ease;
+  background: linear-gradient(90deg, #e2e2e2, #c9d6ff);
+}
+
+.sidebar.close ~ .home {
+  left: 88px;
+  width: calc(100% - 88px);
+}
+
+/* === Homepage content === */
+.homepage-wrapper {
+  padding: 30px 40px;
+  color: #333;
+}
+
+.homepage-wrapper .label {
+  font-size: 48px;
+  font-weight: 700;
+  margin-bottom: 20px;
+  color: #182052;
+}
+
+.homepage-wrapper .greeting {
+  font-size: 48px;
+  font-weight: 700;
+  margin-bottom: 20px;
+  color: #182052;
+}
+
+.homepage-wrapper .sub-label {
+  font-size: 25px;
+  font-weight: 600;
+  margin-bottom: 20px;
+  color: #182052;
+}
+
+/* === Responsive adjustments === */
+@media screen and (max-width: 768px) {
+  .home {
+    left: 88px;
+    width: calc(100% - 88px);
+  }
+
+  .homepage-wrapper {
+    padding: 20px;
+  }
+
+  .homepage-wrapper .label {
+    font-size: 36px;
+  }
+
+  .homepage-wrapper .sub-label {
+    font-size: 18px;
+  }
+}
+
+/* === Modal Overlay === */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.4);
+  z-index: 999;
+  display: none;
+}
+
+.modal-overlay.show {
+  display: block;
+}
+
+/* ==========================================
+   FIXED: Modal Form Card with Scrollbar
+   ========================================== */
+.form-card {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 1000;
+  background: #fff;
+  width: 90%;
+  max-width: 500px;
+  max-height: 90vh;
+  display: none;
+  opacity: 0;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+  border-radius: 12px;
+  box-shadow: 0px 4px 15px rgba(0,0,0,0.15);
+  overflow: hidden;
+  flex-direction: column;
+}
+
+.form-card.show {
+  display: flex;
+  opacity: 1;
+}
+
+/* === Form Title (if used) === */
+.form-title {
+  font-size: 20px;
+  font-weight: 700;
+  color: #1e2a47;
+  margin-bottom: 5px;
+}
+
+.title-underline {
+  width: 50px;
+  height: 3px;
+  background: #ffc107;
+  margin-bottom: 20px;
+}
+
+/* === Header - Fixed at top === */
+.form-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 18px 25px;
+  flex-shrink: 0;
+  background: #fff;
+  border-bottom: 2px solid #f0f0f0;
+  border-radius: 12px 12px 0 0;
+}
+
+.form-header h2 {
+  font-size: 20px;
+  font-weight: 700;
+  color: #1e2a47;
+  margin: 0;
+  border-bottom: 3px solid #ffc107;
+  padding-bottom: 5px;
+}
+
+.close-btn {
+  font-size: 24px;
+  cursor: pointer;
+  color: #666;
+  line-height: 1;
+  transition: all 0.2s ease;
+  padding: 5px;
+}
+
+.close-btn:hover {
+  color: #e74c3c;
+  transform: rotate(90deg);
+}
+
+/* === SCROLLABLE Form Body - THIS IS THE KEY FIX === */
+.form-body {
+  flex: 1;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding: 20px 25px;
+  max-height: calc(90vh - 80px);
+}
+
+/* === Custom Scrollbar Styling === */
+.form-body::-webkit-scrollbar {
+  width: 10px;
+}
+
+.form-body::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 5px;
+  margin: 5px 0;
+}
+
+.form-body::-webkit-scrollbar-thumb {
+  background: #1e439b;
+  border-radius: 5px;
+}
+
+.form-body::-webkit-scrollbar-thumb:hover {
+  background: #ffc107;
+}
+
+/* Firefox scrollbar */
+.form-body {
+  scrollbar-width: thin;
+  scrollbar-color: #1e439b #f1f1f1;
+}
+
+/* === Alert Messages === */
+.alert {
+  padding: 10px 12px;
+  border-radius: 6px;
+  margin-bottom: 15px;
+  font-size: 14px;
+}
+
+.alert-success {
+  background-color: #d4edda;
+  border: 1px solid #c3e6cb;
+  color: #155724;
+}
+
+.alert-danger {
+  background-color: #f8d7da;
+  border: 1px solid #f5c6cb;
+  color: #721c24;
+}
+
+/* === Form Fields === */
+.form-group {
+  margin-bottom: 16px;
+}
+
+.form-group label {
+  display: block;
+  font-weight: 600;
+  margin-bottom: 6px;
+  font-size: 14px;
+  color: #333;
+}
+
+/* === Input Wrapper === */
+.input-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.input-wrapper input,
+.input-wrapper select {
+  width: 100%;
+  padding: 10px 40px 10px 12px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 14px;
+  outline: none;
+  transition: border-color 0.3s ease;
+}
+
+/* Icon positioning */
+.input-wrapper i {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #777;
+  pointer-events: none;
+  font-size: 16px;
+  width: 16px;
+  text-align: center;
+}
+
+/* Date inputs */
+.input-wrapper input[type="date"] {
+  padding: 10px 12px;
+}
+
+.input-wrapper input[type="date"] + i {
+  display: none;
+}
+
+/* File input */
+.input-wrapper input[type="file"] {
+  padding: 10px 12px;
+}
+
+.input-wrapper input[type="file"] + i {
+  right: 12px;
+}
+
+.input-wrapper input:focus,
+.input-wrapper select:focus {
+  border-color: #1e439b;
+  box-shadow: 0 0 5px rgba(30, 67, 155, 0.4);
+}
+
+/* Small helper text */
+small {
+  color: #666;
+  font-size: 12px;
+  margin-top: 5px;
+  display: block;
+}
+
+/* === Button Group === */
+.btn-group {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 20px;
+  padding-top: 15px;
+  border-top: 1px solid #e0e0e0;
+}
+
+.reset-btn,
+.submit-btn {
+  padding: 10px 20px;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.reset-btn {
+  background: #182052;
+  color: #fff;
+}
+
+.reset-btn:hover {
+  background: #0f1435;
+  transform: translateY(-2px);
+}
+
+.submit-btn {
+  background: #182052;
+  color: #fff;
+}
+
+.submit-btn:hover {
+  background: #0f1435;
+  transform: translateY(-2px);
+}
+
+/* === Document Buttons === */
+.document-btn {
+  width: 100%;
+  height: 70px;
+  background-color: #f8f9fa;
+  border: 2px solid #5a647d;
+  color: #5a647d;
+  border-radius: 50px;
+  font-size: 1.2rem;
+  font-weight: 500;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 25px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+}
+
+.document-btn:hover {
+  background-color: #e2e6ea;
+  transform: translateY(-3px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+.document-btn i {
+  font-size: 1.5rem;
+  color: #5a647d;
+  transition: transform 0.3s ease;
+}
+
+.document-btn:hover i {
+  transform: rotate(90deg);
+}
+
+/* === Enhanced Close Button for Coming Soon Popup === */
+#ComingSoon .close-btn {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  background: #f3f3f3;
+  border: none;
+  width: 32px;
+  height: 32px;
+  line-height: 30px;
+  border-radius: 50%;
+  font-size: 20px;
+  color: #333;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
+  z-index: 10;
+}
+
+#ComingSoon .close-btn:hover {
+  background: #e74c3c;
+  color: #fff;
+  transform: rotate(90deg);
+}
+
+#ComingSoon .form-body {
+  position: relative;
+  text-align: center;
+  padding-top: 50px;
+}
+
+/* === Responsive Modal === */
+@media screen and (max-height: 700px) {
+  .form-card {
+    max-height: 95vh;
+  }
+  
+  .form-body {
+    max-height: calc(95vh - 80px);
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .form-card {
+    width: 95%;
+  }
+  
+  .form-body {
+    padding: 15px 20px;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .form-card {
+    width: 98%;
+    max-height: 95vh;
+  }
+  
+  .form-header {
+    padding: 15px 18px;
+  }
+  
+  .form-header h2 {
+    font-size: 18px;
+  }
+  
+  .form-body {
+    padding: 12px 15px;
+    max-height: calc(95vh - 70px);
+  }
+  
+  .form-group {
+    margin-bottom: 12px;
+  }
+  
+  .btn-group {
+    flex-direction: column;
+  }
+  
+  .reset-btn,
+  .submit-btn {
+    width: 100%;
+    justify-content: center;
+  }
+}
+
+/* ========================================
+   COMPLETE FORMSTYLES.CSS WITH SCROLLBAR FIX
+   Replace your entire formstyles.css with this
+   ======================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
+}
+
+body {
+  min-height: 100vh;
+  background: linear-gradient(90deg, #e2e2e2, #c9d6ff);
+  position: relative;
+}
+
+/* === Sidebar-aware homepage layout === */
+.home {
+  position: absolute;
+  top: 0;
+  left: 280px;
+  width: calc(100% - 250px);
+  height: 100vh;
+  transition: all 0.3s ease;
+  background: linear-gradient(90deg, #e2e2e2, #c9d6ff);
+}
+
+.sidebar.close ~ .home {
+  left: 88px;
+  width: calc(100% - 88px);
+}
+
+/* === Homepage content === */
+.homepage-wrapper {
+  padding: 30px 40px;
+  color: #333;
+}
+
+.homepage-wrapper .label {
+  font-size: 48px;
+  font-weight: 700;
+  margin-bottom: 20px;
+  color: #182052;
+}
+
+.homepage-wrapper .greeting {
+  font-size: 48px;
+  font-weight: 700;
+  margin-bottom: 20px;
+  color: #182052;
+}
+
+.homepage-wrapper .sub-label {
+  font-size: 25px;
+  font-weight: 600;
+  margin-bottom: 20px;
+  color: #182052;
+}
+
+/* === Responsive adjustments === */
+@media screen and (max-width: 768px) {
+  .home {
+    left: 88px;
+    width: calc(100% - 88px);
+  }
+
+  .homepage-wrapper {
+    padding: 20px;
+  }
+
+  .homepage-wrapper .label {
+    font-size: 36px;
+  }
+
+  .homepage-wrapper .sub-label {
+    font-size: 18px;
+  }
+}
+
+/* === Modal Overlay === */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.4);
+  z-index: 999;
+  display: none;
+}
+
+.modal-overlay.show {
+  display: block;
+}
+
+/* ==========================================
+   FIXED: Modal Form Card - OUTER SCROLLBAR ONLY
+   ========================================== */
+.form-card {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 1000;
+  background: #fff;
+  width: 90%;
+  max-width: 500px;
+  max-height: 90vh;
+  display: none;
+  opacity: 0;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+  border-radius: 12px;
+  box-shadow: 0px 4px 15px rgba(0,0,0,0.15);
+  overflow-y: auto;
+  overflow-x: hidden;
+  flex-direction: column;
+}
+
+.form-card.show {
+  display: flex;
+  opacity: 1;
+}
+
+/* === Custom Scrollbar for Outer Container === */
+.form-card::-webkit-scrollbar {
+  width: 10px;
+}
+
+.form-card::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 0 12px 12px 0;
+}
+
+.form-card::-webkit-scrollbar-thumb {
+  background: #1e439b;
+  border-radius: 5px;
+}
+
+.form-card::-webkit-scrollbar-thumb:hover {
+  background: #ffc107;
+}
+
+/* Firefox scrollbar */
+.form-card {
+  scrollbar-width: thin;
+  scrollbar-color: #1e439b #f1f1f1;
+}
+
+/* === Form Title (if used) === */
+.form-title {
+  font-size: 20px;
+  font-weight: 700;
+  color: #1e2a47;
+  margin-bottom: 5px;
+}
+
+.title-underline {
+  width: 50px;
+  height: 3px;
+  background: #ffc107;
+  margin-bottom: 20px;
+}
+
+/* === Header - Fixed at top === */
+.form-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 18px 25px;
+  flex-shrink: 0;
+  background: #fff;
+  border-bottom: 2px solid #f0f0f0;
+  border-radius: 12px 12px 0 0;
+}
+
+.form-header h2 {
+  font-size: 20px;
+  font-weight: 700;
+  color: #1e2a47;
+  margin: 0;
+  border-bottom: 3px solid #ffc107;
+  padding-bottom: 5px;
+}
+
+.close-btn {
+  font-size: 24px;
+  cursor: pointer;
+  color: #666;
+  line-height: 1;
+  transition: all 0.2s ease;
+  padding: 5px;
+}
+
+.close-btn:hover {
+  color: #e74c3c;
+  transform: rotate(90deg);
+}
+
+/* === Form Body - NO INNER SCROLLBAR === */
+.form-body {
+  flex: 1;
+  overflow: visible;
+  padding: 20px 25px;
+}
+
+/* === Alert Messages === */
+.alert {
+  padding: 10px 12px;
+  border-radius: 6px;
+  margin-bottom: 15px;
+  font-size: 14px;
+}
+
+.alert-success {
+  background-color: #182052;
+  border: 1px solid #0f1435;
+  color: #ffffff;
+}
+
+.alert-danger {
+  background-color: #182052;
+  border: 1px solid #0f1435;
+  color: #ffffff;
+}
+
+/* === Form Fields === */
+.form-group {
+  margin-bottom: 16px;
+}
+
+.form-group label {
+  display: block;
+  font-weight: 600;
+  margin-bottom: 6px;
+  font-size: 14px;
+  color: #333;
+}
+
+/* === Input Wrapper === */
+.input-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.input-wrapper input,
+.input-wrapper select {
+  width: 100%;
+  padding: 10px 40px 10px 12px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 14px;
+  outline: none;
+  transition: border-color 0.3s ease;
+}
+
+/* Icon positioning */
+.input-wrapper i {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #777;
+  pointer-events: none;
+  font-size: 16px;
+  width: 16px;
+  text-align: center;
+}
+
+/* Date inputs */
+.input-wrapper input[type="date"] {
+  padding: 10px 12px;
+}
+
+.input-wrapper input[type="date"] + i {
+  display: none;
+}
+
+/* File input */
+.input-wrapper input[type="file"] {
+  padding: 10px 12px;
+}
+
+.input-wrapper input[type="file"] + i {
+  right: 12px;
+}
+
+.input-wrapper input:focus,
+.input-wrapper select:focus {
+  border-color: #1e439b;
+  box-shadow: 0 0 5px rgba(30, 67, 155, 0.4);
+}
+
+/* Small helper text */
+small {
+  color: #666;
+  font-size: 12px;
+  margin-top: 5px;
+  display: block;
+}
+
+/* === Button Group === */
+.btn-group {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 20px;
+  padding-top: 15px;
+  border-top: 1px solid #e0e0e0;
+}
+
+.reset-btn,
+.submit-btn {
+  padding: 10px 20px;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.reset-btn {
+  background: #182052;
+  color: #fff;
+}
+
+.reset-btn:hover {
+  background: #0f1435;
+  transform: translateY(-2px);
+}
+
+.submit-btn {
+  background: #182052;
+  color: #fff;
+}
+
+.submit-btn:hover {
+  background: #0f1435;
+  transform: translateY(-2px);
+}
+
+/* === Document Buttons === */
+.document-btn {
+  width: 100%;
+  height: 70px;
+  background-color: #f8f9fa;
+  border: 2px solid #5a647d;
+  color: #5a647d;
+  border-radius: 50px;
+  font-size: 1.2rem;
+  font-weight: 500;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 25px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+}
+
+.document-btn:hover {
+  background-color: #e2e6ea;
+  transform: translateY(-3px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+.document-btn i {
+  font-size: 1.5rem;
+  color: #5a647d;
+  transition: transform 0.3s ease;
+}
+
+.document-btn:hover i {
+  transform: rotate(90deg);
+}
+
+/* === Enhanced Close Button for Coming Soon Popup === */
+#ComingSoon .close-btn {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  background: #f3f3f3;
+  border: none;
+  width: 32px;
+  height: 32px;
+  line-height: 30px;
+  border-radius: 50%;
+  font-size: 20px;
+  color: #333;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
+  z-index: 10;
+}
+
+#ComingSoon .close-btn:hover {
+  background: #e74c3c;
+  color: #fff;
+  transform: rotate(90deg);
+}
+
+#ComingSoon .form-body {
+  position: relative;
+  text-align: center;
+  padding-top: 50px;
+}
+
+/* === Responsive Modal === */
+@media screen and (max-height: 700px) {
+  .form-card {
+    max-height: 95vh;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .form-card {
+    width: 95%;
+  }
+  
+  .form-body {
+    padding: 15px 20px;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .form-card {
+    width: 98%;
+    max-height: 95vh;
+  }
+  
+  .form-header {
+    padding: 15px 18px;
+  }
+  
+  .form-header h2 {
+    font-size: 18px;
+  }
+  
+  .form-body {
+    padding: 12px 15px;
+  }
+  
+  .form-group {
+    margin-bottom: 12px;
+  }
+  
+  .btn-group {
+    flex-direction: column;
+  }
+  
+  .reset-btn,
+  .submit-btn {
+    width: 100%;
+    justify-content: center;
+  }
+}
+
+/* ==========================================
+   TOAST NOTIFICATION STYLES
+   ========================================== */
+.toast-notification {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  min-width: 300px;
+  max-width: 400px;
+  padding: 16px 20px;
+  border-radius: 10px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+  color: #ffffff;
+  background: #182052;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 15px;
+  z-index: 10000;
+  opacity: 0;
+  transform: translateX(400px);
+  transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+.toast-notification.show {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.toast-content {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex: 1;
+}
+
+.toast-icon {
+  font-size: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.toast-message {
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 1.5;
+  flex: 1;
+}
+
+.toast-close {
+  font-size: 22px;
+  cursor: pointer;
+  opacity: 0.8;
+  transition: opacity 0.2s;
+  line-height: 1;
+  padding: 5px;
+  margin-left: 10px;
+}
+
+.toast-close:hover {
+  opacity: 1;
+}
+
+/* Responsive Toast */
+@media screen and (max-width: 480px) {
+  .toast-notification {
+    right: 10px;
+    left: 10px;
+    min-width: auto;
+    max-width: none;
+  }
+}
